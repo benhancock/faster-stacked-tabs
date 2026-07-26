@@ -1,0 +1,46 @@
+name: Release plugin
+
+on:
+  push:
+    tags:
+      - "*"
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      id-token: write
+      attestations: write
+
+    steps:
+      - uses: actions/checkout@v6
+      - name: Use Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: npm
+      - name: Build and validate
+        run: |
+          npm ci
+          npm run lint -- --max-warnings 0
+          npm run typecheck
+          npm run build
+      - name: Verify release version
+        env:
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: |
+          node -e "const m=require('./manifest.json'); if(m.version!==process.env.RELEASE_TAG) throw new Error('Tag must match manifest version')"
+      - name: Attest build provenance
+        uses: actions/attest@v4
+        with:
+          subject-path: main.js
+      - name: Create draft release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" \
+            --title "$GITHUB_REF_NAME" \
+            --draft \
+            --notes-file CHANGELOG.md \
+            main.js manifest.json
