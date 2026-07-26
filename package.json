@@ -27,7 +27,7 @@
     "esbuild": "^0.28.1",
     "eslint": "^9.39.1",
     "eslint-plugin-obsidianmd": "^0.4.1",
-    "obsidian": "1.8.7",
+    "obsidian": "1.13.1",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.65.0"
   }
