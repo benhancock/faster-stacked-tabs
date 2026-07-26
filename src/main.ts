@@ -1,5 +1,7 @@
 import { App, Plugin, PluginSettingTab, Setting } from "obsidian";
 
+import { calculateAnimationProgress, clamp } from "./animation";
+
 interface FasterStackedTabsSettings {
   durationMs: number;
 }
@@ -32,10 +34,6 @@ const MAX_DURATION_MS = 400;
 const DURATION_STEP_MS = 10;
 const TAB_CONTAINER_SELECTOR =
   ".workspace-split.mod-root .workspace-tabs .workspace-tab-container";
-
-function clamp(value: number, minimum: number, maximum: number): number {
-  return Math.min(maximum, Math.max(minimum, value));
-}
 
 function isSavedSettings(
   value: unknown
@@ -187,11 +185,12 @@ export default class FasterStackedTabs extends Plugin {
       return;
     }
 
-    const startTime = ownerWindow.performance.now();
     const duration = this.settings.durationMs;
+    let startTime: number | undefined;
 
     const step = (now: number): void => {
-      const progress = Math.min((now - startTime) / duration, 1);
+      startTime ??= now;
+      const progress = calculateAnimationProgress(now, startTime, duration);
       const easedProgress = 1 - Math.pow(1 - progress, 3);
       element.scrollLeft = startLeft + distance * easedProgress;
 

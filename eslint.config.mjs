@@ -9,6 +9,7 @@ export default defineConfig([
       ".release/**",
       "main.js",
       "*.mjs",
+      "test/**/*.mjs",
       "*.zip"
     ]
   },

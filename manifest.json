@@ -1,7 +1,7 @@
 {
   "id": "faster-stacked-tabs",
   "name": "Faster Stacked Tabs",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "minAppVersion": "1.4.0",
   "description": "Makes stacked-tab switching faster while preserving its sliding animation.",
   "author": "Ben Hancock",

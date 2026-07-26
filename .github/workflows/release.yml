@@ -23,6 +23,7 @@ jobs:
       - name: Build and validate
         run: |
           npm ci
+          npm test
           npm run lint -- --max-warnings 0
           npm run typecheck
           npm run build

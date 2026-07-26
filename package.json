@@ -1,12 +1,13 @@
 {
   "name": "faster-stacked-tabs",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Makes stacked-tab switching faster while preserving its sliding animation.",
   "private": true,
   "scripts": {
     "build": "node esbuild.config.mjs production",
     "dev": "node esbuild.config.mjs",
     "lint": "eslint .",
+    "test": "node --test test/*.test.mjs",
     "typecheck": "tsc --noEmit",
     "version": "node version-bump.mjs && git add manifest.json versions.json"
   },
