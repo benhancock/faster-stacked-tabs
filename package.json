@@ -26,7 +26,7 @@
     "@eslint/js": "^9.39.1",
     "@eslint/json": "0.14.0",
     "esbuild": "^0.28.1",
-    "eslint": "^9.39.1",
+    "eslint": "^10.8.0",
     "eslint-plugin-obsidianmd": "^0.4.1",
     "obsidian": "1.8.7",
     "typescript": "^5.9.3",
